@@ -1,15 +1,18 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt' // For annotation processing
+
+// Version values at Project level versions.gradle.
 
 android {
-    compileSdkVersion 30
+    compileSdkVersion versions.compile_sdk
     buildToolsVersion "30.0.0"
 
     defaultConfig {
         applicationId "com.technical.authentication"
-        minSdkVersion 21
-        targetSdkVersion 30
+        minSdkVersion versions.min_sdk
+        targetSdkVersion versions.target_sdk
         versionCode 1
         versionName "1.0"
 
@@ -17,18 +20,104 @@ android {
     }
 
     buildTypes {
+        debug {
+            buildConfigField 'String', 'URL', '"http://64.227.64.76/api/"'
+        }
         release {
+            buildConfigField 'String', 'URL', '"http://64.227.64.76/api/"'
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
+    }
+    // The Data Binding Library is a support library that allows you to bind UI components in your
+    // layouts to data sources in your app using a declarative format rather than programmatically.
+    dataBinding {
+        enabled = true
+    }
+    // Configure only for each module that uses Java 8 language features
+    // (either in its source code or through dependencies).
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    // To avoid: Cannot inline bytecode built with JVM target 1.8 into bytecode that is being
+    // built with JVM target 1.6.
+    kotlinOptions {
+        jvmTarget = "1.8"
     }
 }
 
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    implementation 'androidx.core:core-ktx:1.3.0'
-    implementation 'androidx.appcompat:appcompat:1.1.0'
-    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+    implementation "androidx.core:core-ktx:$versions.ktx"
+    // This library adds support for the Action Bar user interface design pattern.
+    // It includes support for material design user interface implementations.
+    implementation "androidx.appcompat:appcompat:$versions.app_compat"
+    /* Constraint Layout Library */
+
+    // A ConstraintLayout is a ViewGroup which allows you to position and size widgets in a
+    // flexible way.
+    implementation "androidx.constraintlayout:constraintlayout:$versions.constraint_layout"
+
+    /* Material Components */
+
+    // Material Components for Android is a static library that you can add to your Android app
+    // in order to use APIs that provide implementations of the Material Design specification.
+    implementation "com.google.android.material:material:$versions.material"
+
+    /* Architecture Components */
+
+    // Lifecycle-aware components perform actions in response to a change in the lifecycle status
+    // of another component, such as activities and fragments. These components help you produce
+    // better-organized, and often lighter-weight code, that is easier to maintain.
+
+    // ViewModel and LiveData.
+    // The ViewModel class is designed to store and manage UI-related data in a lifecycle conscious
+    // way. LiveData is an observable data holder class.
+    implementation "androidx.lifecycle:lifecycle-extensions:$versions.lifecycle"
+    // Room is a Database Object Mapping library that makes it easy to access database on Android
+    // applications.
+    implementation "android.arch.persistence.room:runtime:$versions.archRoomVersion"
+    implementation "android.arch.persistence.room:rxjava2:$versions.archRoomVersion"
+    kapt "android.arch.persistence.room:compiler:$versions.archRoomVersion"
+
+    // Dagger for dependency injection. It is a fully static, compile-time dependency injection
+    // framework for both Java and Android.
+    implementation "com.google.dagger:dagger:$versions.dagger"
+    implementation "com.google.dagger:dagger-android:$versions.dagger"
+    implementation "com.google.dagger:dagger-android-support:$versions.dagger"
+    kapt "com.google.dagger:dagger-compiler:$versions.dagger"
+    kapt "com.google.dagger:dagger-android-processor:$versions.dagger"
+
+    // HTTP client - Retrofit with OkHttp.
+    implementation("com.squareup.retrofit2:retrofit:$versions.retrofit") {
+        // Exclude Retrofit’s OkHttp peer-dependency module and define your own module import.
+        exclude module: 'okhttp'
+    }
+    implementation "com.squareup.retrofit2:adapter-rxjava2:$versions.rxJavaAdapterVersion"
+    // An HTTP & HTTP/2 client for Android and Java applications.
+    implementation "com.squareup.okhttp3:okhttp:$versions.okhttp"
+
+    // For providing logs that can be useful for debugging.
+    implementation "com.squareup.okhttp3:logging-interceptor:$versions.okhttp"
+
+    // JSON converter Gson for JSON to Java object mapping.
+    implementation "com.squareup.retrofit2:converter-gson:$versions.retrofit"
+
+    //anko
+    implementation "org.jetbrains.anko:anko:$versions.anko"
+
+    //RxJava RxAndroid
+    implementation "io.reactivex.rxjava2:rxjava:$versions.rxJava2Version"
+    implementation "io.reactivex.rxjava2:rxandroid:$versions.rxAndroidVersion"
+    //RxJava 2 LiveData
+    implementation "android.arch.lifecycle:reactivestreams:$versions.archLifecycleVersion"
+
+    //Lifecycle
+    implementation "android.arch.lifecycle:extensions:$versions.archLifecycleVersion"
+    kapt "android.arch.lifecycle:compiler:$versions.archLifecycleVersion"
+
+
 
 }
