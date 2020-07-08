@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Authentication Sample</string>
+    <string name="title_login">Login</string>
+    <string name="btn_login">Sign In</string>
+    <string name="login_password_hint">Enter Password</string>
+    <string name="username">Enter Username</string>
 </resources>

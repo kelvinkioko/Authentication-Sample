@@ -1,7 +1,8 @@
-package com.technical.authentication
+package com.technical.authentication.ui
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.technical.authentication.R
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

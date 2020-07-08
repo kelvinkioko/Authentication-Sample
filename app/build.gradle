@@ -20,7 +20,11 @@ android {
     }
 
     buildTypes {
+        debug {
+            buildConfigField 'String', 'URL', '"http://64.227.64.76/api/"'
+        }
         release {
+            buildConfigField 'String', 'URL', '"http://64.227.64.76/api/"'
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
