@@ -51,7 +51,7 @@ class Login : AppCompatActivity() {
         // Check when button has just been clicked username
         if (isLoginClicked && editTextUsername.text.isEmpty()) {
             usernameInputValidation.setVisibility(View.VISIBLE)
-            usernameInputValidation.setText("Enter Username")
+            usernameInputValidation.setText(getString(R.string.username))
         } else {
             usernameInputValidation.setVisibility(View.GONE)
         }
@@ -59,7 +59,7 @@ class Login : AppCompatActivity() {
         // Check when button has just been clicked password
         if (isLoginClicked && editTextPassword.text.isEmpty()) {
             passwordInputValidation.setVisibility(View.VISIBLE)
-            passwordInputValidation.setText("Enter Password")
+            passwordInputValidation.setText(getString(R.string.login_password_hint))
         } else {
             passwordInputValidation.setVisibility(View.GONE)
         }
@@ -73,7 +73,7 @@ class Login : AppCompatActivity() {
             override fun afterTextChanged(editable: Editable) {
                 if (inputValidation(editable)) {
                     usernameInputValidation.setVisibility(View.VISIBLE)
-                    usernameInputValidation.setText("Enter Username")
+                    usernameInputValidation.setText(getString(R.string.username))
                 } else {
                     usernameInputValidation.setVisibility(View.GONE)
                 }
@@ -89,7 +89,7 @@ class Login : AppCompatActivity() {
             override fun afterTextChanged(editable: Editable) {
                 if (inputValidation(editable)) {
                     passwordInputValidation.setVisibility(View.VISIBLE)
-                    passwordInputValidation.setText("Enter Password")
+                    passwordInputValidation.setText(getString(R.string.login_password_hint))
                 } else {
                     passwordInputValidation.setVisibility(View.GONE)
                 }

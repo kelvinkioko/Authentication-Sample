@@ -95,7 +95,7 @@
                                     android:id="@+id/editTextUsername"
                                     style="@style/modifiedEditText"
                                     android:hint="@string/username"
-                                    android:inputType="textPersonName"
+                                    android:inputType="textEmailAddress"
                                     android:maxLines="1" />
 
                                 <TextView
